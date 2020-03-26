@@ -10,6 +10,7 @@
 #include "../VertexBuffer.h"
 #include "../VertexShader.h"
 #include "../FragmentShader.h"
+#include "../GLTexture.h"
 
 class RSGLTest : public testing::Test {
 public:
@@ -18,6 +19,11 @@ private:
     MemoryLeakDetector memoryCheck;
 };
 
+TEST_F(RSGLTest, textureTest) {
+    GlInitializer init;
+    GLTexture texture;
+    texture.loadFromFile("C:\\Users\\rsobi\\source\\repos\\rsobies\\RSGlLib\\tekstura.jpg");
+}
 TEST_F(RSGLTest, ShaderTest) {
     GlInitializer init;
     FragmentShader fragmentShader;
