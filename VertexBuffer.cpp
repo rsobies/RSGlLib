@@ -20,6 +20,21 @@ VertexBuffer::VertexBuffer(const vector<vec3f>& points,
 	setVerticles(points, colors);
 }
 
+VertexBuffer::VertexBuffer(const vector<vec3f>& points,
+	const vector<vec2f>& texCoords) 
+	: VertexBuffer()
+{
+	setVerticles(points, texCoords);
+}
+
+VertexBuffer::VertexBuffer(const vector<vec3f>& points,
+	const vector<vec3f>& colors, 
+	const vector<vec2f>& texCoords)
+	: VertexBuffer()
+{
+	setVerticles(points, colors, texCoords);
+}
+
 void VertexBuffer::setVerticles(const vector<vec3f>& points,
 	const vector<vec3f>& colors,
 	const vector<vec2f>& texCoords)
@@ -32,6 +47,17 @@ void VertexBuffer::setVerticles(const vector<vec3f>& points,
 	VertexAttributePtr colorAttrPtr(1, 3, strideSize, 3);
 
 	VertexAttributePtr textAttrPtr(2, 2, strideSize, 6);
+}
+
+void VertexBuffer::setVerticles(const vector<vec3f>& points,
+	const vector<vec2f>& texCoords) {
+
+	vector<vec3f> colors(points.size());
+	for (auto& color : colors) {
+		color = { 1.0f, 1.0f, 1.0f };//defult color, white
+	}
+
+	setVerticles(points, colors, texCoords);
 }
 
 void VertexBuffer::setVerticles(const vector<vec3f>& points, 
@@ -76,6 +102,7 @@ vector<GLfloat> VertexBuffer::createData(const vector<vec3f>& points,
 	const vector<vec2f>& textCoords)
 {
 	assert(points.size() == colors.size());
+	assert(points.size() == textCoords.size());
 
 	vector<GLfloat> allVert(points.size() * 8);
 	int count = 0;

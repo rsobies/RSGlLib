@@ -14,6 +14,11 @@ public:
 	VertexBuffer(const vector<vec3f>& points);
 	VertexBuffer(const vector<vec3f>& points,
 		const vector<vec3f>& colors);
+	VertexBuffer(const vector<vec3f>& points,
+		const vector<vec3f>& colors,
+		const vector<vec2f>& texCoords);
+	VertexBuffer(const vector<vec3f>& points,
+		const vector<vec2f>& texCoords);
 
 	void setVerticles(const vector<vec3f>& points,
 		const vector<vec3f>& colors,

@@ -8,6 +8,7 @@
 #include "VertexShader.h"
 #include "ShaderProgram.h"
 #include "ElementBufferObj.h"
+#include "GLTexture.h"
 
 GLWindow::GLWindow(int width, int height)
 {
@@ -28,21 +29,26 @@ GLWindow::GLWindow(int width, int height)
     //framgentShader.setColor({ 0.0f, 0.5f, 0.0f, 1.0f });
 
     VertexBuffer buffer(
-        { {0.5f,  0.5f, 0.0f},  // top right
-        {0.5f, -0.5f, 0.0f},    // bottom right
-        {-0.5f, -0.5f, 0.0f}, // bottom left
-        {-0.5f,  0.5f, 0.0f},   
-        {0.0f,  -0.7f, 0.0f} },
-        {   {0, 1, 0},//colors
-            {0, 0, 1},
-            {1, 0, 0},
-         {1, 0, 0},
-         {1, 0, 0}
+        { 
+            {0.5f,  0.5f, 0.0f},  // top right
+            {0.5f, -0.5f, 0.0f},    // bottom right
+            {-0.5f, -0.5f, 0.0f} // bottom left
+        },
+        /*
+        {   {1, 1, 1},//colors
+            {1, 1, 1},
+            {1, 1, 1}
+        },*/
+        {//text
+            {1.0f, 1.0f},  // lower-left corner  
+            {1.0f, 0.0f},  // lower-right corner
+            {0, 0}
         });
    
-    buffer.setIndexes({ 0, 1, 3 ,   // first triangle
-                        1, 2, 3,
-                        4, 2, 1});
+    buffer.setIndexes({ 0, 1, 2});
+
+    GLTexture texture;
+    texture.loadFromFile("C:\\Users\\rsobi\\source\\repos\\rsobies\\RSGlLib\\tekstura.jpg");
 
     shProgram->use();
 
