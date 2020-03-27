@@ -5,5 +5,6 @@ class FragmentShader : public GlShader
 {
 public:
 	FragmentShader();
+	bool setTexture();
 };
 

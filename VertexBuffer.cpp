@@ -7,34 +7,48 @@ VertexBuffer::VertexBuffer() : GLBuffer(GL_ARRAY_BUFFER)
 {
 }
 
-VertexBuffer::VertexBuffer(const vector<vector<GLfloat>>& points)
+VertexBuffer::VertexBuffer(const vector<vec3f>& points)
 	: VertexBuffer()
 {
 	setVerticles(points);	
 }
 
-VertexBuffer::VertexBuffer(const vector<vector<GLfloat>>& points, const vector<vector<GLfloat>>& colors)
+VertexBuffer::VertexBuffer(const vector<vec3f>& points,
+	const vector<vec3f>& colors)
 	: VertexBuffer()
 {
 	setVerticles(points, colors);
 }
 
-void VertexBuffer::setVerticles(const vector<vector<GLfloat>>& points, 
-	const vector<vector<GLfloat>>& colors)
+void VertexBuffer::setVerticles(const vector<vec3f>& points,
+	const vector<vec3f>& colors,
+	const vector<vec2f>& texCoords)
 {
-	auto vertexData=createData(points, colors);
+	auto vertexData = createData(points, colors, texCoords);
 	setData(vertexData);
-	
+
 	VertexAttributePtr vertAttrPtr(0, 3, strideSize);
-	
-	VertexAttributePtr colorAttrPtr(1, 3, strideSize, 3);	
+
+	VertexAttributePtr colorAttrPtr(1, 3, strideSize, 3);
+
+	VertexAttributePtr textAttrPtr(2, 2, strideSize, 6);
 }
 
-void VertexBuffer::setVerticles(const vector<vector<GLfloat>>& points)
+void VertexBuffer::setVerticles(const vector<vec3f>& points, 
+	const vector<vec3f>& colors)
 {
-	vector<vector<GLfloat>> colors(points.size());
+	vector<vec2f> texCoord;
+	for (auto& point : points) {
+		texCoord.push_back({ 0, 0});//default
+	}
+	setVerticles(points, colors, texCoord);
+}
+
+void VertexBuffer::setVerticles(const vector<vec3f>& points)
+{
+	vector<vec3f> colors(points.size());
 	for (auto& color : colors) {
-		color = { 1, 1, 1 };//defult color, white
+		color = { 1.0f, 1.0f, 1.0f };//defult color, white
 	}
 
 	setVerticles(points, colors);
@@ -57,25 +71,30 @@ void VertexBuffer::draw()
 	glDrawElements(GL_TRIANGLES, indexesBuffer.size(), GL_UNSIGNED_INT, 0);
 }
 
-vector<GLfloat> VertexBuffer::createData(const vector<vector<GLfloat>>& points, const vector<vector<GLfloat>>& colors)
+vector<GLfloat> VertexBuffer::createData(const vector<vec3f>& points,
+	const vector<vec3f>& colors,
+	const vector<vec2f>& textCoords)
 {
 	assert(points.size() == colors.size());
 
-	vector<GLfloat> allVert(points.size() * 6);
+	vector<GLfloat> allVert(points.size() * 8);
 	int count = 0;
 	
 	for (int i = 0; i < points.size(); i++) {
-		assert(points[i].size() == 3);
-		assert(colors[i].size() == 3);
 		
-		for (int j = 0; j < 3; j++) {
-			allVert[count++] = points[i][j];
-		}
+		auto [x, y, z] = points[i];
+		allVert[count++] = x;
+		allVert[count++] = y;
+		allVert[count++] = z;
 
-		for (int j = 0; j < 3; j++) {
-			allVert[count++] = colors[i][j];
-		}
+		auto [x1, y1, z1] = colors[i];
+		allVert[count++] = x1;
+		allVert[count++] = y1; 
+		allVert[count++] = z1;
 
+		auto [x2, y2] = textCoords[i];
+		allVert[count++] = x2;
+		allVert[count++] = y2;
 	}
 	return allVert;
 }

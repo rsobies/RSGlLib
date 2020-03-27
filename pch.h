@@ -12,6 +12,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <tuple>
 using namespace std;
 
 #endif //PCH_H
