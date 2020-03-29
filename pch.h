@@ -13,6 +13,9 @@
 #include <vector>
 #include <string>
 #include <tuple>
+#include "glm/glm.hpp"
 using namespace std;
+using namespace glm;
+
 
 #endif //PCH_H

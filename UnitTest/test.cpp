@@ -22,7 +22,7 @@ private:
 TEST_F(RSGLTest, textureTest) {
     GlInitializer init;
     GLTexture texture;
-    texture.loadFromFile("C:\\Users\\rsobi\\source\\repos\\rsobies\\RSGlLib\\tekstura.jpg");
+    texture.loadFromFile("..\\..\\tekstura.jpg");
 }
 TEST_F(RSGLTest, ShaderTest) {
     GlInitializer init;

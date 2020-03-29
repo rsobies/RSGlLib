@@ -48,7 +48,7 @@ GLWindow::GLWindow(int width, int height)
     buffer.setIndexes({ 0, 1, 2});
 
     GLTexture texture;
-    texture.loadFromFile("C:\\Users\\rsobi\\source\\repos\\rsobies\\RSGlLib\\tekstura.jpg");
+    texture.loadFromFile("..\\..\\tekstura.jpg");
 
     shProgram->use();
 
