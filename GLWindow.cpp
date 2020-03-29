@@ -26,7 +26,6 @@ GLWindow::GLWindow(int width, int height)
     shProgram->addShader(vertShader);
     shProgram->addShader(framgentShader);
     shProgram->link();
-    //framgentShader.setColor({ 0.0f, 0.5f, 0.0f, 1.0f });
 
     VertexBuffer buffer(
         { 
@@ -57,6 +56,10 @@ GLWindow::GLWindow(int width, int height)
     while (!glfwWindowShouldClose(glInit.getWin().get()))
     {  
         glClear(GL_COLOR_BUFFER_BIT);
+        mat4 trans = glm::mat4(1.0f);
+        trans = rotate(trans, (float)glfwGetTime(), vec3(0.0, 0.0, 1.0));
+
+        vertShader.setTransformMat(trans);
        
         buffer.draw();
         

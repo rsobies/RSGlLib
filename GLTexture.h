@@ -1,5 +1,4 @@
 #pragma once
-#include "glad.h"
 
 class GLTexture
 {

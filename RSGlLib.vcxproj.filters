@@ -16,18 +16,15 @@
     <Filter Include="Header Files\gml">
       <UniqueIdentifier>{9fae220b-f5dc-46ed-bed3-6f3babeff8ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\glad">
+      <UniqueIdentifier>{69e47bfd-bb91-4d95-b072-ed0a0c4a536e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="glad\glad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KHR\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GLWindow.h">
@@ -137,6 +134,12 @@
     </ClInclude>
     <ClInclude Include="glm\vector_relational.hpp">
       <Filter>Header Files\gml</Filter>
+    </ClInclude>
+    <ClInclude Include="glad\glad.h">
+      <Filter>Header Files\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="KHR\khrplatform.h">
+      <Filter>Header Files\glad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

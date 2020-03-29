@@ -1,5 +1,5 @@
 #pragma once
-#include "glad.h"
+
 #include <assert.h>
 
 template<class T>

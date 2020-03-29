@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "glad.h"
-class ShaderProgram;
+#include "ShaderProgram.h"
 
 class GlShader
 {
@@ -12,6 +12,7 @@ public:
 	GLuint getId() const;
 	void setShaderProgram(shared_ptr<ShaderProgram> shProg);
 private:
+	virtual void onProgramSet();
 	GLuint shaderId = 0;
 protected:
 	shared_ptr<ShaderProgram> shaderPtr=nullptr;

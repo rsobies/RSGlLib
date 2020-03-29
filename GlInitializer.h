@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glad.h"
 #include <GLFW/glfw3.h>
 
 using GlWinPtr = unique_ptr<GLFWwindow, void(*)(GLFWwindow*)>;
+
 
 class GlInitializer
 {

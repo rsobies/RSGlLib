@@ -1,6 +1,8 @@
 #pragma once
-#include "GlShader.h"
-#include "glad.h"
+#include "glm/gtc/type_ptr.hpp"
+
+
+class GlShader;
 
 class ShaderProgram : public enable_shared_from_this<ShaderProgram>
 {
@@ -13,11 +15,21 @@ public:
 	void addShader(GlShader& shader);
 	void link();
 	void use();
-	
-	void setUniformVar(const string& valName, const vector<GLfloat>& value);
+	template<class T>
+	void setUniform(const string& valName, const T& value) {
+		
+		use();//to update values
 
-private:
+		if constexpr (is_same<T, mat4>::value) {
+			auto location=glGetUniformLocation(programId, valName.c_str());
+			glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+		}
+		else {
+			static_assert(false, "value argument must be mat4 type");
+		}
+	}
 	
-	GLuint shaderProgram=0;
+private:	
+	GLuint programId=0;
 };
 

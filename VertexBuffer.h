@@ -38,6 +38,7 @@ public:
 	void bindVAO();
 	void setIndexes(const vector<GLuint>& indexes);
 	void draw();
+	
 private:
 	vector<GLfloat> createData(const vector<vec3>& points,
 		const vector<vec3>& colors,
