@@ -65,7 +65,7 @@ protected:
 	GLenum _bufferType = 0;
 
 	/// <summary>
-	/// 
+	/// Numer of elements in the buffer.
 	/// </summary>
 	size_t _size=0;
 };

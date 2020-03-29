@@ -6,19 +6,19 @@
 
 GlShader::GlShader(GLenum shaderType)
 {
-	shaderId = glCreateShader(shaderType);
-	assert(shaderId != 0);
+	id = glCreateShader(shaderType);
+	assert(id != 0);
 }
 
 void GlShader::setSourcCode(const string& sourceCode)
 {
 	auto cSource = sourceCode.c_str();
-	glShaderSource(shaderId, 1, &cSource, nullptr);
-	glCompileShader(shaderId);
+	glShaderSource(id, 1, &cSource, nullptr);
+	glCompileShader(id);
 
 	int  success;
 	//char infoLog[512];
-	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 	assert(success);
 	//if (!success)
 	//{
@@ -31,23 +31,18 @@ void GlShader::setSourcCode(const string& sourceCode)
 
 GlShader::~GlShader()
 {
-	if (shaderId != 0) {
-		glDeleteShader(shaderId);
+	if (id != 0) {
+		glDeleteShader(id);
 	}
 }
 
 GLuint GlShader::getId() const
 {
-	return shaderId;
+	return id;
 }
 
 void GlShader::setShaderProgram(shared_ptr<ShaderProgram> shProg)
 {
 	shaderPtr = shProg;
-	onProgramSet();
-}
-
-void GlShader::onProgramSet()
-{
-
+	
 }
