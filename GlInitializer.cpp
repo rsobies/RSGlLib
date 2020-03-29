@@ -24,7 +24,7 @@ GlInitializer::~GlInitializer()
     glfwTerminate();
 }
 
-const GlWinPtr& GlInitializer::getWin()
+const GlWinPtr& GlInitializer::getWin() const
 {
     return glWin_ptr;
 }
