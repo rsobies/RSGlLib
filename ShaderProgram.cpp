@@ -6,31 +6,31 @@
 
 ShaderProgram::ShaderProgram()
 {
-	programId = glCreateProgram();
+	id = glCreateProgram();
 }
 
 ShaderProgram::~ShaderProgram()
 {
-	glDeleteProgram(programId);
+	glDeleteProgram(id);
 }
 
 void ShaderProgram::addShader(GlShader& shader)
 {
-	glAttachShader(programId, shader.getId());
+	glAttachShader(id, shader.getId());
 	shader.setShaderProgram(shared_from_this());
 }
 
 void ShaderProgram::use()
 {
-	glUseProgram(programId);
+	glUseProgram(id);
 }
 
 void ShaderProgram::link()
 {
-	glLinkProgram(programId);
+	glLinkProgram(id);
 
 	int success;
-	glGetProgramiv(programId, GL_LINK_STATUS, &success);
+	glGetProgramiv(id, GL_LINK_STATUS, &success);
 	assert(success);
 	//if (!success) {
 		//glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
