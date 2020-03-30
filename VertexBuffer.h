@@ -4,12 +4,6 @@
 #include "ElementBufferObj.h"
 #include "GLBuffer.h"
 
-
-
-//using vec2f = tuple<GLfloat, GLfloat>;
-//using vec3f = tuple<GLfloat, GLfloat, GLfloat>;
-
-
 class VertexBuffer : public GLBuffer<GLfloat>
 {
 public:
@@ -46,5 +40,6 @@ private:
 	ElementBufferObj indexesBuffer;	
 	VertexArrayObj vao;
 	unsigned int strideSize=8;
+
 };
 

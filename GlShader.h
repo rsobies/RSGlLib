@@ -11,9 +11,10 @@ public:
 	GLuint getId() const;
 	void setShaderProgram(shared_ptr<ShaderProgram> shProg);
 private:
-	//virtual void onProgramSet();
+	
 	GLuint id = 0;
 protected:
 	shared_ptr<ShaderProgram> shaderPtr=nullptr;
+	virtual void onProgramSet() {};
 };
 

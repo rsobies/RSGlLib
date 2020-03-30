@@ -24,6 +24,26 @@ TEST_F(RSGLTest, textureTest) {
     GLTexture texture;
     texture.loadFromFile("..\\..\\tekstura.jpg");
 }
+
+class A {
+public:
+    void tt() {
+        p();
+    }
+    virtual void p() = 0;
+};
+
+class B : public A{
+public:
+    void p() override {
+        int kk = 7;
+    }
+};
+
+TEST_F(RSGLTest, tmp) {
+    B pp;
+    pp.tt();
+}
 TEST_F(RSGLTest, ShaderTest) {
     GlInitializer init;
     FragmentShader fragmentShader;

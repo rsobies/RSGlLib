@@ -52,14 +52,15 @@ GLWindow::GLWindow(int width, int height)
     shProgram->use();
 
     glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(glInit.getWin().get()))
     {  
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         mat4 trans = glm::mat4(1.0f);
         trans = rotate(trans, (float)glfwGetTime(), vec3(0.0, 0.0, 1.0));
 
-        vertShader.setTransformMat(trans);
+        vertShader.setWorldMat(trans);
        
         buffer.draw();
         

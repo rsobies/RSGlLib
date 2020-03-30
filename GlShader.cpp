@@ -44,5 +44,5 @@ GLuint GlShader::getId() const
 void GlShader::setShaderProgram(shared_ptr<ShaderProgram> shProg)
 {
 	shaderPtr = shProg;
-	
+	onProgramSet();
 }
