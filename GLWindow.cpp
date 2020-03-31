@@ -17,21 +17,23 @@ GLWindow::GLWindow(int width, int height)
     //ustawienie callback do zmiany rozmiaru
     glfwSetFramebufferSizeCallback(glInit.getWin().get(), [](GLFWwindow* window, int _width, int _height) {
         glViewport(0, 0, _width, _height);
-    });
-    
+        });
+
     FragmentShader framgentShader;
-    VertexShader vertShader;  
-    
-    auto shProgram= ShaderProgram::create();
+    VertexShader vertShader;
+
+    auto shProgram = ShaderProgram::create();
     shProgram->addShader(vertShader);
     shProgram->addShader(framgentShader);
     shProgram->link();
 
+
     VertexBuffer buffer(
-        { 
+        {
             {0.5f,  0.5f, 0.0f},  // top right
             {0.5f, -0.5f, 0.0f},    // bottom right
-            {-0.5f, -0.5f, 0.0f} // bottom left
+            {-0.5f, -0.5f, 0.0f},
+            {-0.5f, 0.5f, 0.0f}// bottom left
         },
         /*
         {   {1, 1, 1},//colors
@@ -39,12 +41,14 @@ GLWindow::GLWindow(int width, int height)
             {1, 1, 1}
         },*/
         {//text
-            {1.0f, 1.0f},  // lower-left corner  
-            {1.0f, 0.0f},  // lower-right corner
-            {0, 0}
+            {1, 1},  // lower-left corner  
+            {1, 0},  // lower-right corner
+            {0, 0},
+            {0, 1}
         });
-   
-    buffer.setIndexes({ 0, 1, 2});
+
+    buffer.setIndexes({ 0, 1, 2,
+                        0, 3, 2 });
 
     GLTexture texture;
     texture.loadFromFile("..\\..\\tekstura.jpg");
@@ -54,12 +58,18 @@ GLWindow::GLWindow(int width, int height)
     glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
     glEnable(GL_DEPTH_TEST);
 
+    mat4 view(1.0f);
+    view = translate(view, { 0.0f, 0.0f, -3.0f});
+    vertShader.setViewMat(view);
+
+    vertShader.setDefaultPerspective(width, height);
+
     while (!glfwWindowShouldClose(glInit.getWin().get()))
     {  
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        mat4 trans = glm::mat4(1.0f);
-        trans = rotate(trans, (float)glfwGetTime(), vec3(0.0, 0.0, 1.0));
 
+        mat4 trans = mat4(1.0f);
+        trans = rotate(trans, (float)glfwGetTime(), { 1, 0, 0 });
         vertShader.setWorldMat(trans);
        
         buffer.draw();

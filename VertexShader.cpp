@@ -13,7 +13,8 @@ VertexShader::VertexShader() : GlShader(GL_VERTEX_SHADER)
                                 "{0, 1, 0, 0},"
                                  "{0, 0, 1, 0},"
                                   "{0, 0, 0, 1}};"
-        "uniform mat4 view={{1, 0, 0, 0},"
+        "uniform mat4 view={"
+        "{1, 0, 0, 0},"
         "{0, 1, 0, 0},"
         "{0, 0, 1, 0},"
         "{0, 0, 0, 1}};"
@@ -25,7 +26,7 @@ VertexShader::VertexShader() : GlShader(GL_VERTEX_SHADER)
 
         "void main()\n"
         "{\n"
-        "   gl_Position = world * vec4(aPos, 1.0);\n"
+        "   gl_Position =projection*view* world * vec4(aPos, 1.0);\n"
             "ourColor = aColor;\n"
             "TexCoord = aTexCoord;\n"
         "}";
@@ -36,6 +37,7 @@ VertexShader::VertexShader() : GlShader(GL_VERTEX_SHADER)
 void VertexShader::setWorldMat(const mat4& world)
 {
     assert(shaderPtr != nullptr);
+    assert(shaderPtr->isLinked());
     
     shaderPtr->setUniform("world", world);
 }
@@ -43,6 +45,7 @@ void VertexShader::setWorldMat(const mat4& world)
 void VertexShader::setViewMat(const mat4& view)
 {
     assert(shaderPtr != nullptr);
+    assert(shaderPtr->isLinked());
 
     shaderPtr->setUniform("view", view);
 }
@@ -50,13 +53,14 @@ void VertexShader::setViewMat(const mat4& view)
 void VertexShader::setProjectionMat(const mat4& projection)
 {
     assert(shaderPtr != nullptr);
+    assert(shaderPtr->isLinked());
 
     shaderPtr->setUniform("projection", projection);
 }
 
-void VertexShader::onProgramSet()
+void VertexShader::setDefaultPerspective(int width, int height)
 {
-    mat4 projection;
-    projection = perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    mat4 projection(1.0f);
+    projection = perspective(radians(45.0f), (float)width / (float)width, 0.1f, 100.0f);
     setProjectionMat(projection);
 }

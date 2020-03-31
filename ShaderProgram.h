@@ -63,7 +63,10 @@ public:
 		}
 	}
 	
+	bool isLinked() const;
 private:
+
+	bool bLinked = false;
 
 	/// <summary>
 	/// Id of the shader program.

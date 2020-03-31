@@ -31,7 +31,14 @@ public:
     /// <param name="projection"></param>
     void setProjectionMat(const mat4& projection);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    void setDefaultPerspective(int width, int height);
+
 protected:
-    void onProgramSet() override;
+    
 };
 

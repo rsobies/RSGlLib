@@ -15,6 +15,6 @@ private:
 	GLuint id = 0;
 protected:
 	shared_ptr<ShaderProgram> shaderPtr=nullptr;
-	virtual void onProgramSet() {};
+	virtual void onProgramSet() {};	
 };
 

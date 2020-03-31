@@ -18,11 +18,17 @@ void ShaderProgram::addShader(GlShader& shader)
 {
 	glAttachShader(id, shader.getId());
 	shader.setShaderProgram(shared_from_this());
+	bLinked = false;
 }
 
 void ShaderProgram::use()
 {
 	glUseProgram(id);
+}
+
+bool ShaderProgram::isLinked() const
+{
+	return bLinked;
 }
 
 void ShaderProgram::link()
@@ -32,8 +38,5 @@ void ShaderProgram::link()
 	int success;
 	glGetProgramiv(id, GL_LINK_STATUS, &success);
 	assert(success);
-	//if (!success) {
-		//glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		
-	//}
+	bLinked = true;
 }
